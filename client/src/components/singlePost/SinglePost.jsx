@@ -8,8 +8,8 @@ import "./singlePost.css";
 export default function SinglePost() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-  const [post, setPost] = useState(null); // تأكد من أن الحالة تبدأ بقيمة null
-  const PF = process.env.REACT_APP_PF || "http://localhost:5000/images/";
+  const [post, setPost] = useState(null); 
+  const PF = "flowers-zgnw.vercel.app"
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");

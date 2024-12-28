@@ -6,6 +6,10 @@ import "./topbar.css";
 export default function TopBar() {
   const { user, dispatch } = useContext(Context);
   const PF = "flowers-zgnw.vercel.app"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 208c6ba714245b3d092c10a3febf281748d905e9
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });

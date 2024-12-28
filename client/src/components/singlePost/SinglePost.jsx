@@ -8,7 +8,11 @@ import "./singlePost.css";
 export default function SinglePost() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
+<<<<<<< HEAD
   const [post, setPost] = useState(null); // تأكد من أن الحالة تبدأ بقيمة null
+=======
+  const [post, setPost] = useState(null); 
+>>>>>>> 208c6ba714245b3d092c10a3febf281748d905e9
   const PF = "flowers-zgnw.vercel.app"
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");

@@ -13,11 +13,15 @@ const compression = require("compression");
 
 dotenv.config();
 app.use(express.json());
-app.use(cors());
 
-app.use(compression()); 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+app.use(compression());
 app.use("/images", express.static(path.join(__dirname, "/images")));
-
 
 const connectDB = async () => {
   try {
@@ -29,6 +33,7 @@ const connectDB = async () => {
   }
 };
 connectDB();
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");

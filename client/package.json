@@ -45,5 +45,5 @@
     "postcss": "^8.3.11",
     "postcss-safe-parser": "^6.0.0"
   },
-  "proxy": "flowers-zgnw.vercel.app"
+  "proxy": "http://localhost:5000"
 }

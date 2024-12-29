@@ -1,28 +1,30 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
 import "./register.css";
 
 export default function Register() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const userRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { dispatch, isFetching } = useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(false);
+    dispatch({ type: "REGISTER_START" });
     try {
-      const res = await axios.post("/auth/register", {
-        username,
-        email,
-        password,
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
+        username: userRef.current.value,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
       });
-      res.data && window.location.replace("/login");
+      dispatch({ type: "REGISTER_SUCCESS", payload: res.data });
     } catch (err) {
-      setError(true);
+      dispatch({ type: "REGISTER_FAILURE" });
     }
   };
+
   return (
     <div className="register">
       <span className="registerTitle">Register</span>
@@ -32,23 +34,23 @@ export default function Register() {
           type="text"
           className="registerInput"
           placeholder="Enter your username..."
-          onChange={(e) => setUsername(e.target.value)}
+          ref={userRef}
         />
         <label>Email</label>
         <input
-          type="text"
+          type="email"
           className="registerInput"
           placeholder="Enter your email..."
-          onChange={(e) => setEmail(e.target.value)}
+          ref={emailRef}
         />
         <label>Password</label>
         <input
           type="password"
           className="registerInput"
           placeholder="Enter your password..."
-          onChange={(e) => setPassword(e.target.value)}
+          ref={passwordRef}
         />
-        <button className="registerButton" type="submit">
+        <button className="registerButton" type="submit" disabled={isFetching}>
           Register
         </button>
       </form>
@@ -57,7 +59,6 @@ export default function Register() {
           Login
         </Link>
       </button>
-      {error && <span style={{color:"red", marginTop:"10px"}}>Something went wrong!</span>}
     </div>
   );
 }
